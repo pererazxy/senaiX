@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
+import Profile from "../screens/Profile";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
@@ -59,7 +60,7 @@ export default function AppRoutes() {
       />
       <Tab.Screen
         name="profile"
-        component={Home}
+        component={Profile}
         options={{
           title: "profile",
           tabBarIcon: ({ color }) => (
