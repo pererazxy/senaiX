@@ -15,73 +15,83 @@ import { api } from "../services/api";
 
 export default function SignUp() {
   const navigation = useNavigation();
-  const [username,setUsername] = useState("");
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
-  const [error,setError] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  async function handleSubmit(){
+  async function handleSubmit() {
     setError("");
-    if(!email.trim() || !username.trim() || !password.trim()){
-      setError("Por Favor,Preencha Todos Os Campos!")
+    if (!email.trim() || !username.trim() || !password.trim()) {
+      setError("Por favor, preencha todos os campos!");
       return;
     }
-    try{
+    try {
       await api.post("register", {
         email,
         username,
         password,
       });
-      Alert.alert("Sucesso","Usuário Criado Com Sucesso!");
-    }
-    catch(err){
-      if(err.response){
-        setError(err.response.data.message);
+      Alert.alert("Sucesso", "Usuário criado com sucesso!");
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data.message);
+      } else {
+        setError("Não foi possível se conectar com o servidor");
       }
-      setError("Não Foi Possível Se Conectara Com O Servidor");
     }
   }
 
   return (
     <View style={style.container}>
-      <TouchableOpacity onPress={()=> navigation.goBack()}>
-        <Feather name="chevron-left" size={32} color="#8a8787"/>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Feather name="chevron-left" size={32} color="#8a8787" />
       </TouchableOpacity>
       <View>
-        <Text style={style.title}>Estamos Quase Lá</Text>
-        <Text style={style.subtitle}>Faça seu cadastro para começar a utilizar o app.</Text>
+        <Text style={style.title}>Estamos quase lá.</Text>
+        <Text style={style.subtitle}>
+          Faça seu cadastro para começar a utilizar o app.
+        </Text>
       </View>
-      <View style={{gap:16}}>
-      <View style={style.inputBox}>
-        <Feather name="user" size={24} color="#8a8787"/>
+      <View style={{ gap: 16 }}>
+        <View style={style.inputBox}>
+          <Feather name="user" size={24} color="#8a8787" />
           <TextInput
-        style={style.input}
-        placeholder="Digite seu Nome" 
-        placeholderTextColor="#8a8787"
-        value={username}
-        onChangeText={(text) => setUsername(text)}/>
+            style={style.input}
+            placeholder="Digite seu nome"
+            placeholderTextColor="#8a8787"
+            value={username}
+            onChangeText={(text) => setUsername(text)}
+          />
         </View>
         <View style={style.inputBox}>
-        <Feather name="mail" size={24} color="#8a8787"/>
+          <Feather name="mail" size={24} color="#8a8787" />
           <TextInput
-        style={style.input}
-        placeholder="Digite seu Email" 
-        placeholderTextColor="#8a8787"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={(text) => setEmail(text)}/>  
+            style={style.input}
+            placeholder="Digite seu email"
+            placeholderTextColor="#8a8787"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
         </View>
         <View style={style.inputBox}>
-        <Feather name="lock" size={24} color="#8a8787"/>
+          <Feather name="lock" size={24} color="#8a8787" />
           <TextInput
-        style={style.input}
-        placeholder="Digite sua Senha" 
-        placeholderTextColor="#8a8787"
-        value={password}
-        onChangeText={(text) => setPassword(text)}/>
+            style={style.input}
+            placeholder="Digite sua senha"
+            placeholderTextColor="#8a8787"
+            secureTextEntry
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
         </View>
         {error && <Text style={style.erro}>{error}</Text>}
-        <MyButton onPress={() => handleSubmit()} text="Cadastrar" style={{width:"100%"}}/>
+        <MyButton
+          onPress={() => handleSubmit()}
+          text="Cadastrar"
+          style={{ width: "100%" }}
+        />
       </View>
     </View>
   );

@@ -12,14 +12,12 @@ import MyButton from "../components/MyButton";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/useAuth";
 
-
 export default function SignIn() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { signIn } = useAuth();
-
 
   async function handleSubmit() {
     try {
@@ -37,7 +35,6 @@ export default function SignIn() {
       }
     }
   }
-
 
   return (
     <View style={style.container}>
@@ -99,14 +96,12 @@ const style = StyleSheet.create({
     color: "#3D3D4D",
   },
 
-
   subtitle: {
     fontSize: 20,
     fontWeight: "300",
     width: 280,
     marginTop: 16,
   },
-
 
   inputBox: {
     flexDirection: "row",
